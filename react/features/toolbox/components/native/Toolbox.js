@@ -241,11 +241,16 @@ class Toolbox extends Component<Props, State> {
             <View
                 pointerEvents = 'box-none'
                 style = { styles.toolbar }>
+<<<<<<< HEAD
                 <ToggleCameraButton
+=======
+                <AudioMuteButton
+>>>>>>> d862443c79f3ca169b45df10dfb817f9e66f8c6e
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
                 <HangupButton
                     styles = { _styles.hangupButtonStyles } />
+<<<<<<< HEAD
                 {_chatMode ? 
                     <ToggleNextUserButton
                         styles = { buttonStyles }
@@ -256,6 +261,14 @@ class Toolbox extends Component<Props, State> {
                         toggledStyles = { toggledButtonStyles } />
                 }
 
+=======
+                <ToggleCameraButton
+                    styles = { buttonStyles }
+                    toggledStyles = { toggledButtonStyles } />
+                <ToggleNextUserButton
+                    styles = { buttonStyles }
+                    toggledStyles = { toggledButtonStyles } />
+>>>>>>> d862443c79f3ca169b45df10dfb817f9e66f8c6e
             </View>
         );
     }
