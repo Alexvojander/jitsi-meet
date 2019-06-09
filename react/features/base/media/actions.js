@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable */
 
 import type { Dispatch } from 'redux';
 
@@ -9,7 +10,8 @@ import {
     SET_VIDEO_AVAILABLE,
     SET_VIDEO_MUTED,
     STORE_VIDEO_TRANSFORM,
-    TOGGLE_CAMERA_FACING_MODE
+    TOGGLE_CAMERA_FACING_MODE,
+    TOGGLE_NEXT_USER
 } from './actionTypes';
 import { CAMERA_FACING_MODE, VIDEO_MUTISM_AUTHORITY } from './constants';
 
@@ -149,3 +151,15 @@ export function toggleCameraFacingMode() {
         type: TOGGLE_CAMERA_FACING_MODE
     };
 }
+
+/**
+  *
+ * @returns {{
+    *     type: TOGGLE_NEXT_USER
+    * }}
+    */
+   export function toggleNextUser() {
+       return {
+           type: TOGGLE_NEXT_USER
+       };
+   }

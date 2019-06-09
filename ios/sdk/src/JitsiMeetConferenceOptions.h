@@ -42,6 +42,11 @@
 @property (nonatomic, copy, nullable) NSDictionary *colorScheme;
 
 /**
+ * Chat mode in which mute button replaced with 'next'
+ */
+@property (nonatomic) BOOL isChatMode;
+
+/**
  * Set to YES to join the conference with audio / video muted or to start in audio
  * only mode respectively.
  */
@@ -66,6 +71,8 @@
 @property (nonatomic, copy, nullable, readonly) NSString *token;
 
 @property (nonatomic, copy, nullable) NSDictionary *colorScheme;
+
+@property (nonatomic, readonly) BOOL isChatMode;
 
 @property (nonatomic, readonly) BOOL audioOnly;
 @property (nonatomic, readonly) BOOL audioMuted;

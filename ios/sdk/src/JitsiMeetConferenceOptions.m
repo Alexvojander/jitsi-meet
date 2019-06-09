@@ -23,11 +23,13 @@
     NSNumber *_audioMuted;
     NSNumber *_videoMuted;
     NSNumber *_welcomePageEnabled;
+    NSNumber *_isChatMode;
 }
 
 @dynamic audioOnly;
 @dynamic audioMuted;
 @dynamic videoMuted;
+@dynamic isChatMode;
 @dynamic welcomePageEnabled;
 
 - (instancetype)init {
@@ -38,6 +40,7 @@
         _token = nil;
 
         _colorScheme = nil;
+        _isChatMode = nil;
 
         _audioOnly = nil;
         _audioMuted = nil;
@@ -83,6 +86,14 @@
     return _welcomePageEnabled && [_welcomePageEnabled boolValue];
 }
 
+- (void)setIsChatMode:(BOOL)isChatMode {
+    _isChatMode = [NSNumber numberWithBool:isChatMode];
+}
+
+- (BOOL)getIsChatMode {
+    return _isChatMode && [_isChatMode boolValue];
+}
+
 #pragma mark - Private API
 
 - (NSNumber *)getAudioOnly {
@@ -108,11 +119,13 @@
     NSNumber *_audioMuted;
     NSNumber *_videoMuted;
     NSNumber *_welcomePageEnabled;
+    BOOL *_isChatMode;
 }
 
 @dynamic audioOnly;
 @dynamic audioMuted;
 @dynamic videoMuted;
+@dynamic isChatMode;
 @dynamic welcomePageEnabled;
 
 #pragma mark - Dynamic properties
@@ -133,6 +146,10 @@
     return _welcomePageEnabled && [_welcomePageEnabled boolValue];
 }
 
+- (BOOL)isChatMode {
+    return _isChatMode;
+}
+
 #pragma mark - Internal initializer
 
 - (instancetype)initWithBuilder:(JitsiMeetConferenceOptionsBuilder *)builder {
@@ -141,6 +158,7 @@
         _room = builder.room;
         _subject = builder.subject;
         _token = builder.token;
+        _isChatMode = [builder getIsChatMode];
 
         _colorScheme = builder.colorScheme;
 
@@ -187,6 +205,10 @@
     }
     if (_subject != nil) {
         config[@"subject"] = self.subject;
+    }
+
+    if (_isChatMode != nil) {
+        config[@"chatMode"] = @(self.isChatMode);
     }
 
     NSMutableDictionary *urlProps = [[NSMutableDictionary alloc] init];

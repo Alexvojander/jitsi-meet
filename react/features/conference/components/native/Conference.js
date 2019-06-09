@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable */
 
 import React from 'react';
 import { BackHandler, NativeModules, SafeAreaView, StatusBar, View } from 'react-native';
@@ -18,7 +19,7 @@ import { Chat } from '../../../chat';
 import { DisplayNameLabel } from '../../../display-name';
 import {
     FILMSTRIP_SIZE,
-    Filmstrip,
+    //Filmstrip,
     isFilmstripVisible,
     TileView
 } from '../../../filmstrip';
@@ -260,7 +261,7 @@ class Conference extends AbstractConference<Props, *> {
                       * React Components depict the videos of the conference's
                       * participants.
                       */
-                        _shouldDisplayTileView ? undefined : <Filmstrip />
+                        _shouldDisplayTileView ? undefined : undefined // <Filmstrip />
                     }
                 </View>
 
