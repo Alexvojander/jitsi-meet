@@ -7,17 +7,16 @@ import { Container } from '../../../base/react';
 import { ColorSchemeRegistry } from '../../../base/color-scheme';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
-import { ChatButton } from '../../../chat';
 
 import { isToolboxVisible } from '../../functions';
 import { HANGUP_BUTTON_SIZE } from '../../constants';
 
 import AudioMuteButton from '../AudioMuteButton';
 import HangupButton from '../HangupButton';
+import ToggleCameraButton from '../ToggleCameraButton';
 
-import OverflowMenuButton from './OverflowMenuButton';
 import styles from './styles';
-import VideoMuteButton from '../VideoMuteButton';
+import ToggleNextUserButton from '../ToggleNextUserButton';
 
 /**
  * The number of buttons other than {@link HangupButton} to render in
@@ -50,6 +49,8 @@ type Props = {
      * The indicator which determines whether the toolbox is visible.
      */
     _visible: boolean,
+
+    _chatMode: boolean,
 
     /**
      * The redux {@code dispatch} function.
@@ -239,20 +240,15 @@ class Toolbox extends Component<Props, State> {
             <View
                 pointerEvents = 'box-none'
                 style = { styles.toolbar }>
-                <ChatButton
-                    styles = { buttonStyles }
-                    toggledStyles = {
-                        this._getChatButtonToggledStyle(toggledButtonStyles)
-                    } />
                 <AudioMuteButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
                 <HangupButton
                     styles = { _styles.hangupButtonStyles } />
-                <VideoMuteButton
+                <ToggleCameraButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
-                <OverflowMenuButton
+                <ToggleNextUserButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
             </View>
@@ -273,9 +269,12 @@ class Toolbox extends Component<Props, State> {
  * }}
  */
 function _mapStateToProps(state: Object): Object {
+    const props = state['features/base/app'].app.props;
+
     return {
         _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
-        _visible: isToolboxVisible(state)
+        _visible: isToolboxVisible(state),
+        _chatMode: props.chatMode
     };
 }
 

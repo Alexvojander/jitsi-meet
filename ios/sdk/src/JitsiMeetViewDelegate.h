@@ -55,4 +55,7 @@
  */
 - (void)enterPictureInPicture:(NSDictionary *)data;
 
+- (void)toggleCameraFacingMode:(NSDictionary *)data;
+- (void)toggleNextUser:(NSDictionary *)data;
+
 @end
