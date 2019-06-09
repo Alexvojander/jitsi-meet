@@ -17,6 +17,10 @@ import {
     JITSI_CONNECTION_CONFERENCE_KEY,
     JITSI_CONNECTION_URL_KEY
 } from '../../base/connection';
+import {
+    TOGGLE_CAMERA_FACING_MODE,
+    TOGGLE_NEXT_USER
+} from '../../base/media/actionTypes';
 import { MiddlewareRegistry } from '../../base/redux';
 import { toURLString } from '../../base/util';
 import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture';
@@ -95,6 +99,12 @@ MiddlewareRegistry.register(store => next => action => {
         break;
 
     case ENTER_PICTURE_IN_PICTURE:
+        sendEvent(store, type, /* data */ {});
+        break;
+
+    case TOGGLE_CAMERA_FACING_MODE:
+    case TOGGLE_NEXT_USER:
+    case 'PARTICIPANT_LEFT':
         sendEvent(store, type, /* data */ {});
         break;
 

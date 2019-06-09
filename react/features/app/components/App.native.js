@@ -58,7 +58,9 @@ type Props = AbstractAppProps & {
      * rendered when the {@link App} is not at a location (URL) identifying
      * a Jitsi Meet conference/room.
      */
-    welcomePageEnabled: boolean
+    welcomePageEnabled: boolean,
+
+    chatMode: boolean
 };
 
 /**
