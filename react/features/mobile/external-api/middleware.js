@@ -19,7 +19,8 @@ import {
 } from '../../base/connection';
 import {
     TOGGLE_CAMERA_FACING_MODE,
-    TOGGLE_NEXT_USER
+    TOGGLE_NEXT_USER,
+    LIKE_USER
 } from '../../base/media/actionTypes';
 import { MiddlewareRegistry } from '../../base/redux';
 import { toURLString } from '../../base/util';
@@ -104,6 +105,7 @@ MiddlewareRegistry.register(store => next => action => {
 
     case TOGGLE_CAMERA_FACING_MODE:
     case TOGGLE_NEXT_USER:
+    case LIKE_USER:
     case 'PARTICIPANT_LEFT':
         sendEvent(store, type, /* data */ {});
         break;

@@ -9,7 +9,7 @@ import type { Props } from './AbstractButton';
 export default class AbstractToggleCameraButton<P: Props, S: *>
     extends AbstractButton<P, S> {
 
-    iconName = 'icon-microphone';
+    iconName = 'microphone';
     toggledIconName = 'icon-mic-disabled toggled';
 
 

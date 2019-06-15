@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable */
 
 import { ColorSchemeRegistry, schemeColor } from '../../../base/color-scheme';
 import { BoxModel, ColorPalette, createStyleSheet } from '../../../base/styles';
@@ -11,18 +12,18 @@ import { HANGUP_BUTTON_SIZE } from '../../constants';
  * The style of toolbar buttons.
  */
 const toolbarButton = {
-    backgroundColor: schemeColor('button'),
+    backgroundColor: 'transparent',
     borderRadius: 20,
     borderWidth: 0,
     flex: 0,
     flexDirection: 'row',
-    height: 40,
+    height: 60,
     justifyContent: 'center',
 
     // XXX We probably tested BoxModel.margin and discovered it to be too small
     // for our taste.
-    marginHorizontal: 7,
-    width: 40
+    marginHorizontal: 10,
+    width: 60
 };
 
 /**
@@ -72,7 +73,8 @@ const styles = createStyleSheet({
      */
     toolbox: {
         flexDirection: 'column',
-        flexGrow: 0
+        flexGrow: 0,
+        marginBottom: 30
     }
 });
 
@@ -104,7 +106,7 @@ ColorSchemeRegistry.register('Toolbox', {
         iconStyle: whiteToolbarButtonIcon,
         style: {
             ...toolbarButton,
-            backgroundColor: schemeColor('hangup'),
+            //backgroundColor: schemeColor('hangup'),
             borderRadius: HANGUP_BUTTON_SIZE / 2,
             height: HANGUP_BUTTON_SIZE,
             width: HANGUP_BUTTON_SIZE

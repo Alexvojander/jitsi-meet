@@ -57,5 +57,6 @@
 
 - (void)toggleCameraFacingMode:(NSDictionary *)data;
 - (void)toggleNextUser:(NSDictionary *)data;
+- (void)likeUser:(NSDictionary *)data;
 
 @end

@@ -1,9 +1,8 @@
 // @flow
+/* eslint-disable */
 
 import React from 'react';
-import { Text, TouchableHighlight, View } from 'react-native';
-
-import { Icon } from '../../../base/font-icons';
+import { Text, TouchableHighlight, View, Image } from 'react-native';
 
 import AbstractToolboxItem from './AbstractToolboxItem';
 import type { Props } from './AbstractToolboxItem';
@@ -12,6 +11,15 @@ import type { Props } from './AbstractToolboxItem';
  * Native implementation of {@code AbstractToolboxItem}.
  */
 export default class ToolboxItem extends AbstractToolboxItem<Props> {
+    images = {
+        hangup: require('./img/hangup.png'),
+        unmute: require('./img/muted.png'),
+        mute: require('./img/will_mute.png'),
+        switch_camera: require('./img/switch-camera.png'),
+        navigate_next: require('./img/next.png'),
+        like: require('./img/like.png')
+      }
+
     /**
      * Transform the given (web) icon name into a name that works with
      * {@code Icon}.
@@ -22,7 +30,7 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
     _getIconName() {
         const { iconName } = this.props;
 
-        return iconName.replace('icon-', '').split(' ')[0];
+        return iconName.replace('icon-', '').split(' ')[0].replace('-', '_');
     }
 
     /**
@@ -33,11 +41,11 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
      */
     _renderIcon() {
         const { styles } = this.props;
-
         return (
-            <Icon
-                name = { this._getIconName() }
-                style = { styles && styles.iconStyle } />
+            <Image 
+                source={this.images[this._getIconName()]}
+                style={{ width: '100%', height: '100%' }}
+            />
         );
     }
 
@@ -88,7 +96,7 @@ export default class ToolboxItem extends AbstractToolboxItem<Props> {
                 disabled = { disabled }
                 onPress = { onClick }
                 style = { style }
-                underlayColor = { styles && styles.underlayColor } >
+                /*underlayColor = { styles && styles.underlayColor }*/ >
                 { children }
             </TouchableHighlight>
         );

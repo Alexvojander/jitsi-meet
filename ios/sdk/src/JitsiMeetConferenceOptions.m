@@ -208,7 +208,7 @@
     }
 
     if (_isChatMode != nil) {
-        config[@"chatMode"] = @(self.isChatMode);
+        props[@"chatMode"] = @(self.isChatMode);
     }
 
     NSMutableDictionary *urlProps = [[NSMutableDictionary alloc] init];

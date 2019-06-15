@@ -15,6 +15,7 @@ import { HANGUP_BUTTON_SIZE } from '../../constants';
 import AudioMuteButton from '../AudioMuteButton';
 import HangupButton from '../HangupButton';
 import ToggleCameraButton from '../ToggleCameraButton';
+import LikeUserButton from '../LikeUserButton';
 
 import styles from './styles';
 import ToggleNextUserButton from '../ToggleNextUserButton';
@@ -244,8 +245,13 @@ class Toolbox extends Component<Props, State> {
                 <ToggleCameraButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
-                <HangupButton
-                    styles = { _styles.hangupButtonStyles } />
+                {_chatMode ? 
+                    <LikeUserButton
+                        styles = { _styles.hangupButtonStyles } />
+                    :
+                    <HangupButton
+                        styles = { _styles.hangupButtonStyles } />
+                }
                 {_chatMode ? 
                     <ToggleNextUserButton
                         styles = { buttonStyles }

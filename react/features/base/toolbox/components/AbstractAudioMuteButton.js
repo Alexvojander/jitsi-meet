@@ -9,8 +9,8 @@ import type { Props } from './AbstractButton';
 export default class AbstractAudioMuteButton<P: Props, S: *>
     extends AbstractButton<P, S> {
 
-    iconName = 'icon-microphone';
-    toggledIconName = 'icon-mic-disabled toggled';
+    iconName = 'icon-mute';
+    toggledIconName = 'icon-unmute';
 
     /**
      * Handles clicking / pressing the button, and toggles the audio mute state

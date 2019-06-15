@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable */
 
 // FIXME The bundler-related (and the browser-related) polyfills were born at
 // the very early days of prototyping the execution of lib-jitsi-meet on
@@ -44,6 +45,7 @@ class Root extends PureComponent<Props> {
      * @returns {ReactElement}
      */
     render() {
+        // console.disableYellowBox = true; 
         return (
             <App
                 { ...this.props } />
