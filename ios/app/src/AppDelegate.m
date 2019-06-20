@@ -44,8 +44,9 @@
     jitsiMeet.universalLinkDomains = @[@"meet.jit.si", @"alpha.jitsi.net", @"beta.meet.jit.si"];
 
     jitsiMeet.defaultConferenceOptions = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {
-        builder.serverURL = [NSURL URLWithString:@"https://meet.jit.si"];
+        builder.serverURL = [NSURL URLWithString:@"https://jitsi.monstrofil.xyz"];
         builder.welcomePageEnabled = YES;
+        builder.isChatMode = YES;
     }];
 
     [jitsiMeet application:application didFinishLaunchingWithOptions:launchOptions];

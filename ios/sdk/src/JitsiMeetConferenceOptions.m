@@ -90,8 +90,8 @@
     _isChatMode = [NSNumber numberWithBool:isChatMode];
 }
 
-- (BOOL)getIsChatMode {
-    return _isChatMode && [_isChatMode boolValue];
+- (NSNumber *)getIsChatMode {
+    return _isChatMode;
 }
 
 #pragma mark - Private API
@@ -119,7 +119,7 @@
     NSNumber *_audioMuted;
     NSNumber *_videoMuted;
     NSNumber *_welcomePageEnabled;
-    BOOL *_isChatMode;
+    NSNumber *_isChatMode;
 }
 
 @dynamic audioOnly;
@@ -147,7 +147,7 @@
 }
 
 - (BOOL)isChatMode {
-    return _isChatMode;
+    return _isChatMode && [_isChatMode boolValue];
 }
 
 #pragma mark - Internal initializer
