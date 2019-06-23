@@ -12,6 +12,12 @@ export default createStyleSheet({
         flex: 0
     },
 
+    avatarWrapper: {
+        alignItems: 'stretch',
+        flex: 1,
+        justifyContent: 'center'
+    },
+
     /**
      * Style for the text rendered when there is a connectivity problem.
      */

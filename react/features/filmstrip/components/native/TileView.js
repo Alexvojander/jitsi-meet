@@ -193,7 +193,8 @@ class TileView extends Component<Props, State> {
             if (participant.local) {
                 localParticipant = participant;
             } else {
-                participants.push(participant);
+                // disable remote participants
+                // participants.push(participant);
             }
         }
 

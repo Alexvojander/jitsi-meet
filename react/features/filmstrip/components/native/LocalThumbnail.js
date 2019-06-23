@@ -29,6 +29,7 @@ class LocalThumbnail extends Component<Props> {
      */
     render() {
         const { _localParticipant } = this.props;
+        console.log(_localParticipant);
 
         return (
             <View style = { styles.localThumbnail }>

@@ -15,6 +15,9 @@ import { connect } from '../../redux';
 import { StyleType } from '../../styles';
 import { TestHint } from '../../testing/components';
 import { getTrackByMediaTypeAndParticipant } from '../../tracks';
+import {
+  BallIndicator
+} from 'react-native-indicators';
 
 import Avatar from './Avatar';
 import {
@@ -239,9 +242,13 @@ class ParticipantView extends Component<Props> {
                         zoomEnabled = { this.props.zoomEnabled } /> }
 
                 { renderAvatar
-                    && <Avatar
-                        size = { this.props.avatarSize }
-                        uri = { avatar } /> }
+                    && <View
+                        style={styles.avatarWrapper}>
+                        <Avatar
+                            size = { this.props.avatarSize }
+                            uri = { avatar } />
+                    </View>
+                }
 
                 { useTint
 

@@ -1,12 +1,22 @@
 // @flow
 
 import React, { Component } from 'react';
+import { View} from 'react-native';
 
 import { ColorSchemeRegistry } from '../../base/color-scheme';
 import { ParticipantView } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { DimensionsDetector } from '../../base/responsive-ui';
 import { StyleType } from '../../base/styles';
+
+import FastImage, {
+    type CacheControls,
+    type Priorities
+} from 'react-native-fast-image';
+
+import {
+  BallIndicator
+} from 'react-native-indicators';
 
 import { AVATAR_SIZE } from './styles';
 
@@ -21,6 +31,10 @@ type Props = {
      * @private
      */
     _participantId: string,
+
+    _avatarUrl: string,
+
+    _participantsCount: Integer,
 
     /**
      * The color-schemed stylesheet of the feature.
@@ -121,22 +135,43 @@ class LargeVideo extends Component<Props, State> {
         } = this.state;
         const {
             _participantId,
+            _participantsCount,
+            _avatarUrl,
             _styles,
             onClick
         } = this.props;
 
+        const source = {};
+        source.uri = _avatarUrl;
         return (
             <DimensionsDetector
                 onDimensionsChanged = { this._onDimensionsChanged }>
-                <ParticipantView
-                    avatarSize = { avatarSize }
-                    onPress = { onClick }
-                    participantId = { _participantId }
-                    style = { _styles.largeVideo }
-                    testHintId = 'org.jitsi.meet.LargeVideo'
-                    useConnectivityInfoLabel = { useConnectivityInfoLabel }
-                    zOrder = { 0 }
-                    zoomEnabled = { true } />
+                {
+                    _participantsCount == 1 ?
+                    <View
+                        style = { _styles.largeVideo }>
+                        <FastImage
+                             resizeMode = 'contain'
+                             style = { _styles.largeVideo }
+                             source={{
+                                 uri: avatarUrl,
+                                 priority: FastImage.priority.normal,
+                             }} />
+                        <BallIndicator
+                            color='white'
+                        />
+                    </View>
+                     :
+                    <ParticipantView
+                        avatarSize = { avatarSize }
+                        onPress = { onClick }
+                        participantId = { _participantId }
+                        style = { _styles.largeVideo }
+                        testHintId = 'org.jitsi.meet.LargeVideo'
+                        useConnectivityInfoLabel = { useConnectivityInfoLabel }
+                        zOrder = { 0 }
+                        zoomEnabled = { true } />
+                }
             </DimensionsDetector>
         );
     }
@@ -153,8 +188,11 @@ class LargeVideo extends Component<Props, State> {
  * }}
  */
 function _mapStateToProps(state) {
+    const props = state['features/base/app'].app.props;
     return {
         _participantId: state['features/large-video'].participantId,
+        _participantsCount: state['features/base/participants'].length,
+        _avatarUrl: props.avatarUrl,
         _styles: ColorSchemeRegistry.get(state, 'LargeVideo')
     };
 }

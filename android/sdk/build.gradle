@@ -2,6 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
+    signingConfigs {
+        ішпт {
+            storeFile file('C:\\Users\\shish\\android.jks')
+            storePassword 'shalex12'
+            keyAlias = 'key0'
+            keyPassword 'shalex12'
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {

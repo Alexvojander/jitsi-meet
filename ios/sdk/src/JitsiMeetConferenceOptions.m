@@ -35,6 +35,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _serverURL = nil;
+        _avatarUrl = nil;
         _room = nil;
         _subject = nil;
         _token = nil;
@@ -155,6 +156,7 @@
 - (instancetype)initWithBuilder:(JitsiMeetConferenceOptionsBuilder *)builder {
     if (self = [super init]) {
         _serverURL = builder.serverURL;
+        _avatarUrl = builder.avatarUrl;
         _room = builder.room;
         _subject = builder.subject;
         _token = builder.token;
@@ -219,6 +221,9 @@
     } else {
         if (_serverURL != nil) {
             urlProps[@"serverURL"] = [_serverURL absoluteString];
+        }
+        if (_avatarUrl != nil) {
+            urlProps[@"avatarUrl"] = [_avatarUrl absoluteString];
         }
 
         if (_room != nil) {

@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import React from 'react';
-import { BackHandler, NativeModules, SafeAreaView, StatusBar, View } from 'react-native';
+import { BackHandler, NativeModules, SafeAreaView, StatusBar, View, Text, Animated, PanResponder } from 'react-native';
 
 import { appNavigate } from '../../../app';
 import { getAppProp } from '../../../base/app';
@@ -19,7 +19,7 @@ import { Chat } from '../../../chat';
 import { DisplayNameLabel } from '../../../display-name';
 import {
     FILMSTRIP_SIZE,
-    //Filmstrip,
+    Filmstrip,
     isFilmstripVisible,
     TileView
 } from '../../../filmstrip';
@@ -135,6 +135,27 @@ class Conference extends AbstractConference<Props, *> {
         this._onClick = this._onClick.bind(this);
         this._onHardwareBackPress = this._onHardwareBackPress.bind(this);
         this._setToolboxVisible = this._setToolboxVisible.bind(this);
+
+        this.state = {
+            pan     : new Animated.ValueXY()
+        };
+
+        this.panResponder = PanResponder.create({
+            onStartShouldSetPanResponder : () => true,
+            onPanResponderMove           : Animated.event([null,{
+                dx : this.state.pan.x,
+                dy : this.state.pan.y
+            }]),
+            onPanResponderGrant: (e, gestureState) => {
+              // Set the initial value to the current state
+              this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value});
+              this.state.pan.setValue({x: 0, y: 0});
+            },
+            onPanResponderRelease        : (e, gesture) => {
+                // Flatten the offset to avoid erratic behavior
+                this.state.pan.flattenOffset();
+            }
+        });
     }
 
     /**
@@ -238,6 +259,20 @@ class Conference extends AbstractConference<Props, *> {
                         </TintedView>
                 }
 
+
+                <View
+                    pointerEvents = 'box-none'
+                    style = { styles.draggableFilmstripContainer }
+                >
+                    <Animated.View
+                                    {...this.panResponder.panHandlers}
+                                    style={this.state.pan.getLayout()}>
+                        <Filmstrip />
+                    </Animated.View>
+
+                </View>
+
+
                 <View
                     pointerEvents = 'box-none'
                     style = { styles.toolboxAndFilmstripContainer }>
@@ -250,17 +285,6 @@ class Conference extends AbstractConference<Props, *> {
                       * The Toolbox is in a stacking layer bellow the Filmstrip.
                       */}
                     <Toolbox />
-
-                    {/*
-                      * The Filmstrip is in a stacking layer above the
-                      * LargeVideo. The LargeVideo and the Filmstrip form what
-                      * the Web/React app calls "videospace". Presumably, the
-                      * name and grouping stem from the fact that these two
-                      * React Components depict the videos of the conference's
-                      * participants.
-                      */
-                        _shouldDisplayTileView ? undefined : undefined // <Filmstrip />
-                    }
                 </View>
 
 

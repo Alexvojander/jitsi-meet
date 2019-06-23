@@ -123,5 +123,11 @@ export default createStyleSheet({
         // On iPhone X there is the notch. In the two cases BoxModel.margin is
         // not enough.
         top: BoxModel.margin * 3
+    },
+
+    draggableFilmstripContainer: {
+        top: BoxModel.margin * 3,
+        right: 20,
+        position: 'absolute',
     }
 });

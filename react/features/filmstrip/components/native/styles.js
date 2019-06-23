@@ -48,7 +48,7 @@ export default {
     localThumbnail: {
         alignContent: 'stretch',
         alignSelf: 'stretch',
-        aspectRatio: 1,
+        aspectRatio: 0.5625,
         flexShrink: 0,
         flexDirection: 'row'
     },
@@ -73,17 +73,17 @@ export default {
     thumbnail: {
         alignItems: 'stretch',
         backgroundColor: ColorPalette.appBackground,
-        borderColor: '#424242',
-        borderRadius: 3,
+        borderColor: 'white',
+        borderRadius: 9,
         borderStyle: 'solid',
         borderWidth: 1,
         flex: 1,
-        height: 80,
+        height: 16 * 10,
         justifyContent: 'center',
         margin: 2,
         overflow: 'hidden',
         position: 'relative',
-        width: 80
+        width: 9 * 10
     },
 
     /**

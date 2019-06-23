@@ -95,54 +95,8 @@ class Filmstrip extends Component<Props> {
             return null;
         }
 
-        const isNarrowAspectRatio_ = isNarrowAspectRatio(this);
-        const filmstripStyle
-            = isNarrowAspectRatio_
-                ? styles.filmstripNarrow
-                : styles.filmstripWide;
-
         return (
-            <Container
-                style = { filmstripStyle }
-                visible = { this.props._visible }>
-                {
-                    this._separateLocalThumbnail
-                        && !isNarrowAspectRatio_
-                        && <LocalThumbnail />
-                }
-                <ScrollView
-                    horizontal = { isNarrowAspectRatio_ }
-                    showsHorizontalScrollIndicator = { false }
-                    showsVerticalScrollIndicator = { false }
-                    style = { styles.scrollView } >
-                    {
-                        !this._separateLocalThumbnail
-                            && !isNarrowAspectRatio_
-                            && <LocalThumbnail />
-                    }
-                    {
-
-                        this._sort(
-                                this.props._participants,
-                                isNarrowAspectRatio_)
-                            .map(p => (
-                                <Thumbnail
-                                    key = { p.id }
-                                    participant = { p } />))
-
-                    }
-                    {
-                        !this._separateLocalThumbnail
-                            && isNarrowAspectRatio_
-                            && <LocalThumbnail />
-                    }
-                </ScrollView>
-                {
-                    this._separateLocalThumbnail
-                        && isNarrowAspectRatio_
-                        && <LocalThumbnail />
-                }
-            </Container>
+            <LocalThumbnail />
         );
     }
 
@@ -215,7 +169,7 @@ function _mapStateToProps(state) {
          * @private
          * @type {boolean}
          */
-        _visible: isFilmstripVisible(state)
+        _visible: true
     };
 }
 

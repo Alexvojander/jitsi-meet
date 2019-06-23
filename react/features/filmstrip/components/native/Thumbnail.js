@@ -152,7 +152,7 @@ class Thumbnail extends Component<Props> {
 
         return (
             <Container
-                onClick = { disablePin ? undefined : _onClick }
+                //onClick = { disablePin ? undefined : _onClick }
                 onLongPress = {
                     showRemoteVideoMenu
                         ? _onShowRemoteVideoMenu : undefined }
@@ -233,12 +233,12 @@ function _mapDispatchToProps(dispatch: Function, ownProps): Object {
          * @protected
          * @returns {void}
          */
-        _onClick() {
+        /*_onClick() {
             const { participant } = ownProps;
 
             dispatch(
                 pinParticipant(participant.pinned ? null : participant.id));
-        },
+        },*/
 
         /**
          * Handles long press on the thumbnail.
@@ -275,6 +275,7 @@ function _mapStateToProps(state, ownProps) {
     const largeVideo = state['features/large-video'];
     const tracks = state['features/base/tracks'];
     const id = ownProps.participant.id;
+
     const audioTrack
         = getTrackByMediaTypeAndParticipant(tracks, MEDIA_TYPE.AUDIO, id);
     const videoTrack

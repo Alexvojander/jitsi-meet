@@ -36,6 +36,11 @@
 @property (nonatomic, copy, nullable) NSString *token;
 
 /**
+ * Url of target profile avatar
+ */
+@property ((nonatomic, copy, nullable) NSURL *avatarUrl;
+
+/**
  * Color scheme override, see:
  * https://github.com/jitsi/jitsi-meet/blob/master/react/features/base/color-scheme/defaultScheme.js
  */
@@ -65,6 +70,7 @@
 @interface JitsiMeetConferenceOptions : NSObject
 
 @property (nonatomic, copy, nullable, readonly) NSURL *serverURL;
+@property (nonatomic, copy, nullable, readonly) NSURL *avatarUrl;
 
 @property (nonatomic, copy, nullable, readonly) NSString *room;
 @property (nonatomic, copy, nullable, readonly) NSString *subject;

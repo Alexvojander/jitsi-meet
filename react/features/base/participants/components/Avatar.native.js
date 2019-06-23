@@ -104,9 +104,9 @@ class AvatarContent extends Component<Props, State> {
         // an image retrieval action.
         const source = {};
 
-        if (props.uri && !props.uri.startsWith('#')) {
+        /*if (props.uri && !props.uri.startsWith('#')) {
             source.uri = props.uri;
-        }
+        }*/
 
         this.state = {
             backgroundColor: this._getBackgroundColor(props),
@@ -170,9 +170,9 @@ class AvatarContent extends Component<Props, State> {
 
         return {
             ...styles.avatar,
-            borderRadius: size / 2,
-            height: size,
-            width: size
+            borderRadius: 0,
+            height: '100%',
+            width: '100%'
         };
     }
 

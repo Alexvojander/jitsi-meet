@@ -35,7 +35,7 @@ function _getInitialState() {
     let alwaysVisible = false;
 
     // Toolbar (initial) visibility.
-    let visible = false;
+    let visible = true;
 
     // Default toolbox timeout for mobile app.
     let timeoutMS = 5000;
