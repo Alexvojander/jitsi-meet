@@ -141,8 +141,6 @@ class LargeVideo extends Component<Props, State> {
             onClick
         } = this.props;
 
-        const source = {};
-        source.uri = _avatarUrl;
         return (
             <DimensionsDetector
                 onDimensionsChanged = { this._onDimensionsChanged }>
@@ -154,7 +152,7 @@ class LargeVideo extends Component<Props, State> {
                              resizeMode = 'contain'
                              style = { _styles.largeVideo }
                              source={{
-                                 uri: avatarUrl,
+                                 uri: _avatarUrl,
                                  priority: FastImage.priority.normal,
                              }} />
                         <BallIndicator
@@ -189,6 +187,7 @@ class LargeVideo extends Component<Props, State> {
  */
 function _mapStateToProps(state) {
     const props = state['features/base/app'].app.props;
+    console.log("PROPS", props);
     return {
         _participantId: state['features/large-video'].participantId,
         _participantsCount: state['features/base/participants'].length,

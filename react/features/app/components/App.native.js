@@ -60,7 +60,9 @@ type Props = AbstractAppProps & {
      */
     welcomePageEnabled: boolean,
 
-    chatMode: boolean
+    chatMode: boolean,
+
+    avatarUrl: string
 };
 
 /**

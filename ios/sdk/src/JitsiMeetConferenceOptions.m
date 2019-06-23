@@ -213,6 +213,10 @@
         props[@"chatMode"] = @(self.isChatMode);
     }
 
+    if (_avatarUrl != nil) {
+        props[@"avatarUrl"] = [_avatarUrl absoluteString];
+    }
+
     NSMutableDictionary *urlProps = [[NSMutableDictionary alloc] init];
 
     // The room is fully qualified.
@@ -221,9 +225,6 @@
     } else {
         if (_serverURL != nil) {
             urlProps[@"serverURL"] = [_serverURL absoluteString];
-        }
-        if (_avatarUrl != nil) {
-            urlProps[@"avatarUrl"] = [_avatarUrl absoluteString];
         }
 
         if (_room != nil) {
