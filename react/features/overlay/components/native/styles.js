@@ -36,6 +36,28 @@ export default {
 
     safeContainer: {
         flex: 1
+    },
+
+    connectionBoxStyle: {
+        position: 'absolute',
+        top: 50,
+        left: 0,
+        width: '100%'
+    },
+
+    avatarNameTextStyle: {
+        color: 'white',
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 16
+    },
+
+    connectionTextStyle: {
+        color: 'white',
+        marginTop: 10,
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 14
     }
 };
 

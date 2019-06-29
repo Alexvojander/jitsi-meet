@@ -90,7 +90,10 @@ public class MainActivity extends JitsiMeetActivity {
         JitsiMeetConferenceOptions defaultOptions
             = new JitsiMeetConferenceOptions.Builder()
                 .setWelcomePageEnabled(true)
+                .setRoom("qwer")
+                .setAvatarURL(buildURL("https://datingapp.monstrofil.xyz/media/CACHE/images/%D1%81%D1%8B%D0%BD%D0%BE%D0%BA_WNr1YzR/edb32bc24fb0c1e14d2cb860f0e39bf6.jpg"))
                 .setServerURL(buildURL("https://meet.jit.si"))
+                .setAvatarFullName("Test User")
                 .build();
         JitsiMeet.setDefaultConferenceOptions(defaultOptions);
 
@@ -124,7 +127,8 @@ public class MainActivity extends JitsiMeetActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (BuildConfig.DEBUG && keyCode == KeyEvent.KEYCODE_MENU) {
-            JitsiMeet.showDevOptions();
+            //JitsiMeet.showDevOptions();
+            JitsiMeet.setConnectionEstablished();
             return true;
         }
 

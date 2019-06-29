@@ -196,4 +196,14 @@ public class JitsiMeetActivity extends FragmentActivity
     public void onConferenceWillJoin(Map<String, Object> data) {
         Log.d(TAG, "Conference will join: " + data);
     }
+
+    @Override
+    public void toggleNextUser(Map<String, Object> data) {
+        Log.d(TAG, "toggleNextUser: " + data);
+    }
+
+    @Override
+    public void likeUser(Map<String, Object> data) {
+        Log.d(TAG, "likeUser: " + data);
+    }
 }

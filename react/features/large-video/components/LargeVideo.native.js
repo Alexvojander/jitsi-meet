@@ -1,13 +1,22 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View} from 'react-native';
+import { View, Text } from 'react-native';
 
 import { ColorSchemeRegistry } from '../../base/color-scheme';
+import { LoaderText } from '../../base/util';
+import { Audio, MEDIA_TYPE } from '../../base/media';
 import { ParticipantView } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { DimensionsDetector } from '../../base/responsive-ui';
 import { StyleType } from '../../base/styles';
+
+import {
+  NativeModules,
+  Platform,
+  NativeEventEmitter,
+  DeviceEventEmitter,
+} from 'react-native';
 
 import FastImage, {
     type CacheControls,
@@ -35,6 +44,8 @@ type Props = {
     _avatarUrl: string,
 
     _participantsCount: Integer,
+
+    _avatarFullName: string,
 
     /**
      * The color-schemed stylesheet of the feature.
@@ -65,6 +76,12 @@ type State = {
     useConnectivityInfoLabel: boolean
 };
 
+const Emitter = Platform.select({
+  ios: new NativeEventEmitter(NativeModules.ModuleWithEmitter),
+  android: DeviceEventEmitter,
+});
+
+
 const DEFAULT_STATE = {
     avatarSize: AVATAR_SIZE,
     useConnectivityInfoLabel: true
@@ -80,6 +97,11 @@ class LargeVideo extends Component<Props, State> {
     state = {
         ...DEFAULT_STATE
     };
+
+    _pendingSoundChange = false;
+    _audioConnectionElement = null;
+    _audioRingingElement = null;
+    _message = "Установка соединения";
 
     /** Initializes a new {@code LargeVideo} instance.
      *
@@ -108,18 +130,43 @@ class LargeVideo extends Component<Props, State> {
     _onDimensionsChanged(width: number, height: number) {
         // Get the size, rounded to the nearest even number.
         const size = 2 * Math.round(Math.min(height, width) / 2);
-        let nextState;
-
-        if (size < AVATAR_SIZE * 1.5) {
-            nextState = {
-                avatarSize: size - 15, // Leave some margin.
-                useConnectivityInfoLabel: false
-            };
-        } else {
-            nextState = DEFAULT_STATE;
-        }
-
+        let nextState = DEFAULT_STATE;
         this.setState(nextState);
+    }
+
+    _audioConnectionElementReady(element: Object) {
+        if(element){
+            if (!this._pendingSoundChange) {
+                element.play()
+            }
+            this._audioConnectionElement = element;
+        }
+    }
+
+    _audioRingingElementReady(element: Object) {
+        if(element){
+            this._audioRingingElement = element;
+            if (this._pendingSoundChange) {
+                element.play();
+                this._pendingSoundChange = false;
+                this._message = "Набор номера";
+            }
+        }
+    }
+
+    componentWillMount() {
+        DeviceEventEmitter.addListener("connection.established",
+            this.onConnectionEstablished);
+    }
+
+    onConnectionEstablished(e) {
+        this._pendingSoundChange = true;
+        this._audioConnectionElement.stop();
+        if(this._audioRingingElement) {
+            this._audioRingingElement.play();
+            this._pendingSoundChange = false;
+            this._message = "Набор номера";
+        }
     }
 
     /**
@@ -141,6 +188,10 @@ class LargeVideo extends Component<Props, State> {
             onClick
         } = this.props;
 
+        const {
+            _message
+        } = this;
+
         return (
             <DimensionsDetector
                 onDimensionsChanged = { this._onDimensionsChanged }>
@@ -155,9 +206,23 @@ class LargeVideo extends Component<Props, State> {
                                  uri: _avatarUrl,
                                  priority: FastImage.priority.normal,
                              }} />
-                        <BallIndicator
-                            color='white'
-                        />
+                        <View style = { _styles.connectionBoxStyle }>
+                            <Audio
+                                setRef = { this._audioRingingElementReady }
+                                loop = { true }
+                                src = 'asset:/sounds/outgoingRinging.wav' />
+                            <Audio
+                                setRef = { this._audioConnectionElementReady }
+                                loop = { true }
+                                src = 'asset:/sounds/incomingMessage.wav' />
+                            <Text
+                                style = { _styles.avatarNameTextStyle }>
+                                { this.props._avatarFullName }
+                            </Text>
+                            <LoaderText
+                                textStyle = { _styles.connectionTextStyle }
+                                content = { _message }/>
+                        </View>
                     </View>
                      :
                     <ParticipantView
@@ -187,11 +252,11 @@ class LargeVideo extends Component<Props, State> {
  */
 function _mapStateToProps(state) {
     const props = state['features/base/app'].app.props;
-    console.log("PROPS", props);
     return {
         _participantId: state['features/large-video'].participantId,
         _participantsCount: state['features/base/participants'].length,
         _avatarUrl: props.avatarUrl,
+        _avatarFullName: props.avatarFullName,
         _styles: ColorSchemeRegistry.get(state, 'LargeVideo')
     };
 }

@@ -100,7 +100,6 @@ public class JitsiMeetView extends BaseReactView<JitsiMeetViewListener> {
 
     public JitsiMeetView(@NonNull Context context) {
         super(context);
-
         // Check if the parent Activity implements JitsiMeetActivityInterface,
         // otherwise things may go wrong.
         if (!(context instanceof JitsiMeetActivityInterface)) {

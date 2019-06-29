@@ -8,9 +8,13 @@ import { translate } from '../../../base/i18n';
 import { LoadingIndicator } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
+import { LoaderText } from '../../../base/util';
 
 import OverlayFrame from './OverlayFrame';
 import styles from './styles';
+import {
+  BallIndicator
+} from 'react-native-indicators';
 
 type Props = {
 
@@ -18,6 +22,8 @@ type Props = {
      * The color schemed style of the component.
      */
     _styles: StyleType,
+
+    avatarFullName: string,
 
     /**
      * The Function to be invoked to translate i18n keys.
@@ -59,18 +65,20 @@ class LoadConfigOverlay extends Component<Props> {
                         _styles.loadingOverlayWrapper
                     ] }>
                     <SafeAreaView>
-                        <LoadingIndicator
+                        <BallIndicator
                             color = { _styles.indicatorColor }
-                            size = 'large'
-                            style = { styles.connectIndicator } />
-                        <Text
-                            style = { [
-                                styles.loadingOverlayText,
-                                _styles.loadingOverlayText
-                            ] }>
-                            { this.props.t('connectingOverlay.joiningRoom') }
-                        </Text>
+                            style = { styles.connectIndicator }
+                        />
                     </SafeAreaView>
+                    <View style = { styles.connectionBoxStyle }>
+                        <Text
+                            style = { styles.avatarNameTextStyle }>
+                            { this.props.avatarFullName }
+                        </Text>
+                        <LoaderText
+                            textStyle = { styles.connectionTextStyle }
+                            content = { "Инициализация звонка" }/>
+                    </View>
                 </View>
             </OverlayFrame>
         );
@@ -86,8 +94,10 @@ class LoadConfigOverlay extends Component<Props> {
  * }}
  */
 function _mapStateToProps(state) {
+    const props = state['features/base/app'].app.props;
     return {
-        _styles: ColorSchemeRegistry.get(state, 'LoadConfigOverlay')
+        _styles: ColorSchemeRegistry.get(state, 'LoadConfigOverlay'),
+        avatarFullName: props.avatarFullName
     };
 }
 

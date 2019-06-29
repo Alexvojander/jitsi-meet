@@ -126,7 +126,7 @@ export default createStyleSheet({
     },
 
     draggableFilmstripContainer: {
-        top: BoxModel.margin * 3,
+        bottom: 120,
         right: 20,
         position: 'absolute',
     }

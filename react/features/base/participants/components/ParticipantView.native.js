@@ -283,6 +283,7 @@ class ParticipantView extends Component<Props> {
 function _mapStateToProps(state, ownProps) {
     const { participantId } = ownProps;
     const participant = getParticipantById(state, participantId);
+    const props = state['features/base/app'].app.props;
     let avatar;
     let connectionStatus;
     let participantName;
@@ -310,7 +311,7 @@ function _mapStateToProps(state, ownProps) {
     }
 
     return {
-        _avatar: avatar,
+        _avatar: props.avatarUrl,
         _connectionStatus:
             connectionStatus
                 || JitsiParticipantConnectionStatus.ACTIVE,

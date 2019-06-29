@@ -19,6 +19,10 @@ package org.jitsi.meet.sdk;
 import android.os.Bundle;
 
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 public class JitsiMeet {
     /**
@@ -58,6 +62,25 @@ public class JitsiMeet {
 
         if (reactInstanceManager != null) {
             reactInstanceManager.showDevOptionsDialog();
+        }
+    }
+
+    /**
+     * Used in development mode. It displays the React Native development menu.
+     */
+    public static void setConnectionEstablished() {
+        ReactInstanceManager reactInstanceManager
+            = ReactInstanceManagerHolder.getReactInstanceManager();
+
+        WritableMap payload = Arguments.createMap();
+        // Put data to map
+        payload.putString("sessionId", "123");
+
+        if (reactInstanceManager != null) {
+            reactInstanceManager
+                .getCurrentReactContext()
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit("connection.established", payload);
         }
     }
 }

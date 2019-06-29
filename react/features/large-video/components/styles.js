@@ -21,5 +21,27 @@ ColorSchemeRegistry.register('LargeVideo', {
         backgroundColor: schemeColor('background'),
         flex: 1,
         justifyContent: 'center'
+    },
+
+    connectionBoxStyle: {
+        position: 'absolute',
+        top: 50,
+        left: 0,
+        width: '100%'
+    },
+
+    avatarNameTextStyle: {
+        color: 'white',
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 16
+    },
+
+    connectionTextStyle: {
+        color: 'white',
+        marginTop: 10,
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 14
     }
 });

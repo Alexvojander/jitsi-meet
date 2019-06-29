@@ -253,10 +253,10 @@ class Conference extends AbstractConference<Props, *> {
                   * The activity/loading indicator goes above everything, except
                   * the toolbox/toolbars and the dialogs.
                   */
-                    _connecting
+                   /* _connecting
                         && <TintedView>
                             <LoadingIndicator />
-                        </TintedView>
+                        </TintedView>*/
                 }
 
 

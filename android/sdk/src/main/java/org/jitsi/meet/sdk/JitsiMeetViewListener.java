@@ -47,4 +47,18 @@ public interface JitsiMeetViewListener {
      * @param data Map with a "url" key with the conference URL.
      */
     void onConferenceWillJoin(Map<String, Object> data);
+
+    /**
+     * Called when user wants to switch to next user in chat.
+     *
+     * @param data Map with a "url" key with the conference URL.
+     */
+    void toggleNextUser(Map<String, Object> data);
+
+    /**
+     * Called when user wants to like user in chat.
+     *
+     * @param data Map with a "url" key with the conference URL.
+     */
+    void likeUser(Map<String, Object> data);
 }

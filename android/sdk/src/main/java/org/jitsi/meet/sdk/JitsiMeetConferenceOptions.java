@@ -37,9 +37,17 @@ public class JitsiMeetConferenceOptions implements Parcelable {
      */
     private URL serverURL;
     /**
+     * Avatar url to display while calling person
+     */
+    private URL avatarURL;
+    /**
      * Room name.
      */
     private String room;
+    /**
+     * Target user name.
+     */
+    private String avatarFullName;
     /**
      * Conference subject.
      */
@@ -61,6 +69,7 @@ public class JitsiMeetConferenceOptions implements Parcelable {
     private Boolean audioMuted;
     private Boolean audioOnly;
     private Boolean videoMuted;
+    private Boolean chatMode;
 
     /**
      * Set to {@code true} to enable the welcome page. Typically SDK users won't need this enabled
@@ -73,7 +82,9 @@ public class JitsiMeetConferenceOptions implements Parcelable {
      */
     public static class Builder {
         private URL serverURL;
+        private URL avatarUrl;
         private String room;
+        private String avatarFullName;
         private String subject;
         private String token;
 
@@ -82,6 +93,7 @@ public class JitsiMeetConferenceOptions implements Parcelable {
         private Boolean audioMuted;
         private Boolean audioOnly;
         private Boolean videoMuted;
+        private Boolean chatMode = false;
 
         private Boolean welcomePageEnabled;
 
@@ -95,6 +107,18 @@ public class JitsiMeetConferenceOptions implements Parcelable {
          */
         public Builder setServerURL(URL url) {
             this.serverURL = url;
+
+            return this;
+        }
+
+        public Builder setAvatarURL(URL url) {
+            this.avatarUrl = url;
+
+            return this;
+        }
+
+        public Builder setAvatarFullName(String name) {
+            this.avatarFullName = name;
 
             return this;
         }
@@ -177,6 +201,14 @@ public class JitsiMeetConferenceOptions implements Parcelable {
 
             return this;
         }
+        /**
+         * Indicates the conference is in chat mode and we should change UI.
+         */
+        public Builder setChatMode(boolean chatMode) {
+            this.chatMode = chatMode;
+
+            return this;
+        }
 
         /**
          * Sets the welcome page enabled / disabled. The welcome page lists recent meetings and
@@ -200,6 +232,8 @@ public class JitsiMeetConferenceOptions implements Parcelable {
             JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions();
 
             options.serverURL = this.serverURL;
+            options.avatarURL = this.avatarUrl;
+            options.avatarFullName = this.avatarFullName;
             options.room = this.room;
             options.subject = this.subject;
             options.token = this.token;
@@ -207,6 +241,7 @@ public class JitsiMeetConferenceOptions implements Parcelable {
             options.audioMuted = this.audioMuted;
             options.audioOnly = this.audioOnly;
             options.videoMuted = this.videoMuted;
+            options.chatMode = this.chatMode;
             options.welcomePageEnabled = this.welcomePageEnabled;
 
             return options;
@@ -244,6 +279,20 @@ public class JitsiMeetConferenceOptions implements Parcelable {
 
         // TODO: get rid of this.
         props.putBoolean("pictureInPictureEnabled", true);
+
+        if (avatarURL != null) {
+            props.putString("avatarUrl", avatarURL.toString());
+        }
+
+        if (avatarFullName != null) {
+            props.putString("avatarFullName", avatarFullName);
+        }
+
+        if (avatarURL != null) {
+            props.putString("avatarURL", avatarURL.toString());
+        }
+
+        props.putBoolean("chatMode", chatMode);
 
         Bundle config = new Bundle();
 
