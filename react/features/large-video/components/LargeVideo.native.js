@@ -73,7 +73,9 @@ type State = {
      * Whether the connectivity indicator will be shown or not. It will be true
      * by default, but it may be turned off if there is not enough space.
      */
-    useConnectivityInfoLabel: boolean
+    useConnectivityInfoLabel: boolean,
+
+    _isConnectionEstablished: boolean
 };
 
 const Emitter = Platform.select({
@@ -84,8 +86,10 @@ const Emitter = Platform.select({
 
 const DEFAULT_STATE = {
     avatarSize: AVATAR_SIZE,
+    _isConnectionEstablished: false,
     useConnectivityInfoLabel: true
 };
+
 
 /**
  * Implements a React {@link Component} which represents the large video (a.k.a.
@@ -98,10 +102,8 @@ class LargeVideo extends Component<Props, State> {
         ...DEFAULT_STATE
     };
 
-    _pendingSoundChange = false;
     _audioConnectionElement = null;
     _audioRingingElement = null;
-    _message = "Установка соединения";
 
     /** Initializes a new {@code LargeVideo} instance.
      *
@@ -113,6 +115,9 @@ class LargeVideo extends Component<Props, State> {
 
         // Bind event handlers so they are only bound once per instance.
         this._onDimensionsChanged = this._onDimensionsChanged.bind(this);
+        this.onConnectionEstablished = this.onConnectionEstablished.bind(this);
+        this._audioConnectionElementReady = this._audioConnectionElementReady.bind(this);
+        this._audioRingingElementReady = this._audioRingingElementReady.bind(this);
     }
 
     _onDimensionsChanged: (width: number, height: number) => void;
@@ -136,7 +141,7 @@ class LargeVideo extends Component<Props, State> {
 
     _audioConnectionElementReady(element: Object) {
         if(element){
-            if (!this._pendingSoundChange) {
+            if (!this.state._isConnectionEstablished) {
                 element.play()
             }
             this._audioConnectionElement = element;
@@ -146,10 +151,8 @@ class LargeVideo extends Component<Props, State> {
     _audioRingingElementReady(element: Object) {
         if(element){
             this._audioRingingElement = element;
-            if (this._pendingSoundChange) {
+            if (this.state._isConnectionEstablished) {
                 element.play();
-                this._pendingSoundChange = false;
-                this._message = "Набор номера";
             }
         }
     }
@@ -160,16 +163,14 @@ class LargeVideo extends Component<Props, State> {
     }
 
     onConnectionEstablished(e) {
-        this._pendingSoundChange = true;
         this._audioConnectionElement.stop();
         if(this._audioRingingElement) {
             this._audioRingingElement.play();
-            this._pendingSoundChange = false;
-            this._message = "Набор номера";
         }
+        this.setState({_isConnectionEstablished: true});
     }
 
-    /**
+    /**W
      * Implements React's {@link Component#render()}.
      *
      * @inheritdoc
@@ -178,7 +179,8 @@ class LargeVideo extends Component<Props, State> {
     render() {
         const {
             avatarSize,
-            useConnectivityInfoLabel
+            useConnectivityInfoLabel,
+            _isConnectionEstablished
         } = this.state;
         const {
             _participantId,
@@ -188,9 +190,6 @@ class LargeVideo extends Component<Props, State> {
             onClick
         } = this.props;
 
-        const {
-            _message
-        } = this;
 
         return (
             <DimensionsDetector
@@ -214,14 +213,15 @@ class LargeVideo extends Component<Props, State> {
                             <Audio
                                 setRef = { this._audioConnectionElementReady }
                                 loop = { true }
-                                src = 'asset:/sounds/incomingMessage.wav' />
+                                src = 'asset:/sounds/outgoingStart.wav' />
+
                             <Text
                                 style = { _styles.avatarNameTextStyle }>
                                 { this.props._avatarFullName }
                             </Text>
                             <LoaderText
                                 textStyle = { _styles.connectionTextStyle }
-                                content = { _message }/>
+                                content = { _isConnectionEstablished ? "Набор номера" : "Установка соединения" }/>
                         </View>
                     </View>
                      :
