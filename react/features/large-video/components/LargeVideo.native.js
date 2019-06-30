@@ -158,9 +158,11 @@ class LargeVideo extends Component<Props, State> {
     }
 
     componentWillMount() {
-        DeviceEventEmitter.addListener("connection.established",
+        Emitter.addListener("connection.established",
             this.onConnectionEstablished);
     }
+
+    
 
     onConnectionEstablished(e) {
         this._audioConnectionElement.stop();
