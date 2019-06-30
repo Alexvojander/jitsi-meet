@@ -37,4 +37,6 @@
  */
 - (void)leave;
 
+- (void)setConnectionEstablished;
+
 @end

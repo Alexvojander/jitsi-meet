@@ -38,7 +38,8 @@
 /**
  * Url of target profile avatar
  */
-@property ((nonatomic, copy, nullable) NSURL *avatarUrl;
+@property (nonatomic, copy, nullable) NSURL *avatarUrl;
+@property (nonatomic, copy, nullable) NSString *avatarFullName;
 
 /**
  * Color scheme override, see:
@@ -84,6 +85,7 @@
 @property (nonatomic, readonly) BOOL audioMuted;
 @property (nonatomic, readonly) BOOL videoMuted;
 
+@property (nonatomic, copy, nullable, readonly) NSString *avatarFullName;
 @property (nonatomic, readonly) BOOL welcomePageEnabled;
 
 + (instancetype _Nonnull)fromBuilder:(void (^_Nonnull)(JitsiMeetConferenceOptionsBuilder *_Nonnull))initBlock;

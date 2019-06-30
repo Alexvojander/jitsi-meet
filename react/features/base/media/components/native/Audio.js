@@ -40,6 +40,7 @@ export default class Audio extends AbstractAudio {
      * @returns {void}
      */
     componentDidMount() {
+        console.log("TEST", this.props.src);
         this._sound
             = this.props.src
                 ? new Sound(

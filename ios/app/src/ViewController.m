@@ -38,6 +38,11 @@
     [view join:[[JitsiMeet sharedInstance] getInitialConferenceOptions]];
 }
 
+- (IBAction)onSoundChangeClick:(id)sender {
+    JitsiMeetView *view = (JitsiMeetView *) self.view;
+  [view setConnectionEstablished];
+}
+
 // JitsiMeetViewDelegate
 
 - (void)_onJitsiMeetViewDelegateEvent:(NSString *)name

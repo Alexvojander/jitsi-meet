@@ -180,4 +180,19 @@ static void initializeViewsMap() {
     return [views objectForKey:externalAPIScope];
 }
 
+// This is our static function that we call from our code
+- (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload
+{
+    // userInfo requires a dictionary so we wrap out name and payload into an array and stick
+    // that into the dictionary with a key of 'detail'
+    NSDictionary *eventDetail = @{@"detail":@[name,payload]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"rn-event-emitted"
+                                                        object:self
+                                                      userInfo:eventDetail];
+}
+
+- (void)setConnectionEstablished {
+    [self emitEventWithName:@"connection.established" andPayload:@{}];
+}
+
 @end

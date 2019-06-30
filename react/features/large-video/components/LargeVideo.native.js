@@ -10,6 +10,7 @@ import { ParticipantView } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { DimensionsDetector } from '../../base/responsive-ui';
 import { StyleType } from '../../base/styles';
+import { getSdkBundlePath } from '../../app';
 
 import {
   NativeModules,
@@ -79,7 +80,7 @@ type State = {
 };
 
 const Emitter = Platform.select({
-  ios: new NativeEventEmitter(NativeModules.ModuleWithEmitter),
+  ios: new NativeEventEmitter(NativeModules.CallControllerModule),
   android: DeviceEventEmitter,
 });
 
@@ -211,11 +212,11 @@ class LargeVideo extends Component<Props, State> {
                             <Audio
                                 setRef = { this._audioRingingElementReady }
                                 loop = { true }
-                                src = 'asset:/sounds/outgoingRinging.wav' />
+                                src = {Platform.OS == 'ios' ? getSdkBundlePath() + '/outgoingRinging.wav' : 'asset:/sounds/outgoingRinging.wav' } />
                             <Audio
                                 setRef = { this._audioConnectionElementReady }
                                 loop = { true }
-                                src = 'asset:/sounds/outgoingStart.wav' />
+                                src = {Platform.OS == 'ios' ? getSdkBundlePath() + '/outgoingStart.wav' : 'asset:/sounds/outgoingStart.wav' } />
 
                             <Text
                                 style = { _styles.avatarNameTextStyle }>
