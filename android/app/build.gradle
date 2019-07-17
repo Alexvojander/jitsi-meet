@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-boolean googleServicesEnabled \
-    = project.file('google-services.json').exists() && !rootProject.ext.libreBuild
+boolean googleServicesEnabled  \
+     = project.file('google-services.json').exists() && !rootProject.ext.libreBuild
 
 // Crashlytics integration is done as part of Firebase now, so it gets
 // automagically activated with google-services.json
@@ -13,15 +13,21 @@ if (googleServicesEnabled) {
 // This lets us upload a new build at most every 10 seconds for the
 // next ~680 years.
 // https://stackoverflow.com/a/38643838
-def vcode = (int)(((new Date().getTime()/1000) - 1546297200) / 10)
+def vcode = (int) (((new Date().getTime() / 1000) - 1546297200) / 10)
 
 android {
     signingConfigs {
+//        release {
+//            storeFile file('C:\\Users\\shish\\android.jks')
+//            storePassword 'shalex12'
+//            keyAlias = 'key0'
+//            keyPassword 'shalex12'
+//        }
         release {
-            storeFile file('C:\\Users\\shish\\android.jks')
-            storePassword 'shalex12'
-            keyAlias = 'key0'
-            keyPassword 'shalex12'
+            storeFile file('/Users/alexz/Desktop/jitsi-meet/android/app/JitsiMeetSignedApk.jks')
+            storePassword 'JitsiMeetSignedApk'
+            keyAlias = 'JitsiMeetSignedApk'
+            keyPassword 'JitsiMeetSignedApk'
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -52,6 +58,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-release.pro'
             buildConfigField "boolean", "GOOGLE_SERVICES_ENABLED", "${googleServicesEnabled}"
             buildConfigField "boolean", "LIBRE_BUILD", "${rootProject.ext.libreBuild}"
+            signingConfig signingConfigs.release
         }
     }
 
@@ -184,5 +191,5 @@ gradle.projectsEvaluated {
 }
 
 if (googleServicesEnabled) {
-   apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.gms.google-services'
 }

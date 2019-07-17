@@ -1,7 +1,7 @@
 package org.jitsi.meet.sdk;
 
-import android.support.v4.app.ActivityCompat;
 
+import androidx.core.app.ActivityCompat;
 import com.facebook.react.modules.core.PermissionAwareActivity;
 
 /**
@@ -11,5 +11,5 @@ import com.facebook.react.modules.core.PermissionAwareActivity;
  */
 public interface JitsiMeetActivityInterface
     extends ActivityCompat.OnRequestPermissionsResultCallback,
-            PermissionAwareActivity {
+        PermissionAwareActivity {
 }

@@ -18,7 +18,8 @@
 package org.jitsi.meet.sdk;
 
 import android.app.Application;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactPackage;

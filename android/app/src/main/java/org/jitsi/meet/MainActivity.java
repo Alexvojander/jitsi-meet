@@ -21,9 +21,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
+
+import androidx.annotation.Nullable;
 
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
@@ -138,7 +139,8 @@ public class MainActivity extends JitsiMeetActivity {
     // Helper methods
     //
 
-    private @Nullable URL buildURL(String urlStr) {
+    private @Nullable
+    URL buildURL(String urlStr) {
         try {
             return new URL(urlStr);
         } catch (MalformedURLException e) {
