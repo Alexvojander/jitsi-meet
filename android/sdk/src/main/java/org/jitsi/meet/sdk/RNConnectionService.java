@@ -75,6 +75,10 @@ class RNConnectionService
             String handle,
             boolean hasVideo,
             Promise promise) {
+
+
+        if(JitsiMeetActivity.active==false)
+            return;
         Log.d(TAG,
               String.format("startCall UUID=%s, h=%s, v=%s",
                             callUUID,

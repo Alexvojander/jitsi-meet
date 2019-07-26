@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import com.facebook.react.modules.core.PermissionListener;
 
@@ -33,7 +34,7 @@ import java.util.Map;
  * A base activity for SDK users to embed. It uses {@link JitsiMeetFragment} to do the heavy
  * lifting and wires the remaining Activity lifecycle methods so it works out of the box.
  */
-public class JitsiMeetActivity extends FragmentActivity
+public class JitsiMeetActivity extends AppCompatActivity
         implements JitsiMeetActivityInterface, JitsiMeetViewListener {
 
     protected static final String TAG = JitsiMeetActivity.class.getSimpleName();
@@ -43,6 +44,18 @@ public class JitsiMeetActivity extends FragmentActivity
 
     // Helpers for starting the activity
     //
+    static boolean active = false;
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+    }
 
     public static void launch(Context context, JitsiMeetConferenceOptions options) {
         Intent intent = new Intent(context, JitsiMeetActivity.class);
@@ -100,7 +113,10 @@ public class JitsiMeetActivity extends FragmentActivity
     }
 
     public void leave() {
+        JitsiMeetActivity.active=false;
         getJitsiView().leave();
+        getJitsiView().dispose();
+
     }
 
     private @Nullable JitsiMeetConferenceOptions getConferenceOptions(Intent intent) {

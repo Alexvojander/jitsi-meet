@@ -152,6 +152,7 @@ public class ConnectionService extends android.telecom.ConnectionService {
             // be removed from the ConnectionList.
             connection.setDisconnected(cause);
             connection.destroy();
+
         } else {
             Log.e(TAG, "endCall no connection for UUID: " + callUUID);
         }

@@ -77,7 +77,10 @@ public class JitsiMeetFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        if (view != null) {
+            view.dispose();
+            view = null;
+        }
         JitsiMeetActivityDelegate.onHostDestroy(getActivity());
     }
 
@@ -91,7 +94,10 @@ public class JitsiMeetFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-
+        if (view != null) {
+            view.dispose();
+            view = null;
+        }
         JitsiMeetActivityDelegate.onHostPause(getActivity());
     }
 }
